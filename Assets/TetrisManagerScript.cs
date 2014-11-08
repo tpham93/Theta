@@ -30,14 +30,16 @@ public class TetrisManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        //currentMovingBlock.move(new Vector3(0.1f, 0, 0));
-        //lastSpawnedBlockTime += Time.deltaTime;
-        //if(lastSpawnedBlockTime > 1)
-        //{
-        //    currentMovingBlock = spawnTetrisBlock();
-        //    lastSpawnedBlockTime = 0;
-        //}
+        currentMovingBlock.move(new Vector3(0.1f, 0, 0));
+        lastSpawnedBlockTime += Time.deltaTime;
+        if (lastSpawnedBlockTime > 1)
+        {
+            currentMovingBlock = spawnTetrisBlock();
+            lastSpawnedBlockTime = 0;
+        }
 	}
+
+
 
     private Vector3 offset2DToVector3D(Vector2 offset)
     {
@@ -66,7 +68,7 @@ public class TetrisManagerScript : MonoBehaviour {
 
             blocks.Add(new Block((GameObject)GameObject.Instantiate(SampleBlock, startPosition + offset2DToVector3D(offset), Quaternion.identity), offset2DToVector3D(offset)));
             blocks[i].blockObject.transform.parent = blocks[0].blockObject.transform;
-
+            //blocks[i].blockObject.
             blocksMap[(int)position.x, (int)position.y] = blocks[i];
 
             for (int x = -1; x < 2; ++x)

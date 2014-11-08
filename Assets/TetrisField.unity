@@ -167,6 +167,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 823479947}
+  - 114: {fileID: 823479948}
   m_Layer: 0
   m_Name: TetrisManager
   m_TagString: Untagged
@@ -181,11 +182,23 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 823479946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.940669417, y: -2.3977294, z: 14.9557991}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &823479948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 823479946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca49ca79df229b42875d7fcbce1e69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleBlock: {fileID: 100000, guid: f6d40b45c97ac1e4fb327611e4c0acee, type: 2}
 --- !u!1 &1465310296
 GameObject:
   m_ObjectHideFlags: 0

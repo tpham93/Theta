@@ -9,12 +9,14 @@ public class TetrisManagerScript : MonoBehaviour {
     public const int MAP_WIDTH = 10;
     public const int MAP_HEIGHT = 20;
 
-    TetrisBlock[,] map;
+    Block[,] map;
     public GameObject SampleBlock;
+    TetrisBlock currentMovingBlock;
+    float lastSpawnedBlockTime = 0;
 
 	// Use this for initialization
 	void Start () {
-        this.map = new TetrisBlock[MAP_WIDTH, MAP_HEIGHT];
+        this.map = new Block[MAP_WIDTH, MAP_HEIGHT];
         for(int x = 0; x < MAP_WIDTH; ++x)
         {
             for (int y = 0; y < MAP_HEIGHT; ++y)
@@ -22,12 +24,19 @@ public class TetrisManagerScript : MonoBehaviour {
                 map[x, y] = null;
             }
         }
-	}
+        currentMovingBlock = spawnTetrisBlock();
+    }
 	
 	// Update is called once per frame
 	void Update () 
     {
-        spawnTetrisBlock();   
+        //currentMovingBlock.move(new Vector3(0.1f, 0, 0));
+        //lastSpawnedBlockTime += Time.deltaTime;
+        //if(lastSpawnedBlockTime > 1)
+        //{
+        //    currentMovingBlock = spawnTetrisBlock();
+        //    lastSpawnedBlockTime = 0;
+        //}
 	}
 
     private Vector3 offset2DToVector3D(Vector2 offset)
@@ -55,7 +64,7 @@ public class TetrisManagerScript : MonoBehaviour {
 
             Vector2 offset = position - new Vector2(1,0);
 
-            blocks.Add(new Block((GameObject)GameObject.Instantiate(SampleBlock, startPosition + offset2DToVector3D(position), Quaternion.identity), offset2DToVector3D(position)));
+            blocks.Add(new Block((GameObject)GameObject.Instantiate(SampleBlock, startPosition + offset2DToVector3D(offset), Quaternion.identity), offset2DToVector3D(offset)));
             blocks[i].blockObject.transform.parent = blocks[0].blockObject.transform;
 
             blocksMap[(int)position.x, (int)position.y] = blocks[i];
@@ -75,15 +84,6 @@ public class TetrisManagerScript : MonoBehaviour {
                 }
             }
         }
-
-        //Debug.Log(blocksMap[0, 0] != null ? "_" : "x"
-        //    + blocksMap[1, 0] != null ? "_" : "x"
-        //    + blocksMap[2, 0] != null ? "_" : "x"
-        //    + blocksMap[3, 0] != null ? "_" : "x");
-        //Debug.Log(blocksMap[0, 1] != null ? "_" : "x"
-        //    + blocksMap[1, 1] != null ? "_" : "x"
-        //    + blocksMap[2, 1] != null ? "_" : "x"
-        //    + blocksMap[3, 1] != null ? "_" : "x");
 
         TetrisBlock newBlock = new TetrisBlock(blocks);
         return newBlock;

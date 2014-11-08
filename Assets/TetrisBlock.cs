@@ -16,7 +16,7 @@ public class TetrisBlock
         this.blocks = blocks;
     }
 
-    public void BasicMovement(Vector3 movement)
+    public void move(Vector3 movement)
     {
         blocks[0].blockObject.transform.position += movement;
     }

@@ -178,7 +178,9 @@ MonoBehaviour:
   UpKey2: {fileID: 722051102}
   UpKey3: {fileID: 926795834}
   UpKey4: {fileID: 1267564408}
+  objects: []
   blockedButtons: 
+  positions: []
   currentP: 1
 --- !u!1 &722051102
 GameObject:

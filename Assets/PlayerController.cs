@@ -7,11 +7,11 @@ public class PlayerController : MonoBehaviour
     public float speed = 1;
     private Vector3 position { get { return this.transform.position; } }
     private bool isJumping = false;
+    private BlockScript currentBlock;
 
     // Use this for initialization
     void Start()
     {
-
     }
 
     void FixedUpdate()
@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
         {
             this.gameObject.rigidbody.AddExplosionForce(800.0f, position + Vector3.down, 10.0f);
             isJumping = true;
+            this.transform.parent = null;
+            currentBlock = null;
         }
     }
 
@@ -41,7 +43,16 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(isJumping && collision.collider.name == "Block" && collision.collider.transform.position.y < position.y)
-            isJumping = false;
+        BlockScript collidingBlock = collision.collider.GetComponent<BlockScript>();
+        if(collidingBlock != null)
+        {
+            if(collidingBlock != currentBlock)
+            {
+                currentBlock = collidingBlock;
+                this.transform.parent = currentBlock.transform;
+            }
+            if (isJumping && collision.collider.transform.position.y < position.y)
+                isJumping = false;
+        }
     }
 }

@@ -16,6 +16,6 @@ public class BlockScript : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
 
-        Debug.Log("COLLISION");
+        //Debug.Log("COLLISION");
     }
 }

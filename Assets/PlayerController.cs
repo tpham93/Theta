@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private float hitCooldownTime = 0.5f;
     private float hitCooldown = 0;
-    public bool isHitting { get { return hitCooldown > 0.3; } }
+    public bool isHitting { get { return hitCooldown > 0.0f; } }
 
 
     // Use this for initialization
@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
             if(Input.GetAxis("Hit" + ID2) != 0)
             {
+                this.transform.FindChild("vypp").animation.Play("Hit", PlayMode.StopAll);
                 hitCooldown = hitCooldownTime;
             }
             hitCooldown -= Time.deltaTime;
@@ -75,6 +76,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.gameObject.transform.position.y <= 0.5f)
+            this.gameObject.transform.position = new Vector3(4.5f, 6, -0.5f);
         if (Input.GetKey(KeyCode.Escape))
         {
             MainMenu.currentP = 1;

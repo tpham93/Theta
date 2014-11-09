@@ -11,7 +11,7 @@ public class TetrisManagerScript : MonoBehaviour
     public GameObject player4;
 
     public const int MAP_WIDTH = 10;
-    public const int MAP_HEIGHT = 5;
+    public const int MAP_HEIGHT = 3;
     public const int MAP_LENGTH = 20;
 
     GameObject[] players;
@@ -76,7 +76,6 @@ public class TetrisManagerScript : MonoBehaviour
             possibleSpawnLocations.RemoveAt(locationIndex);
 
             players[i] = (GameObject)GameObject.Instantiate(playerPrefab[i], spawnLocation + new Vector3(0,1,0), Quaternion.identity);
-            
         }
 
         currentMovingBlock = null;
@@ -95,34 +94,50 @@ public class TetrisManagerScript : MonoBehaviour
             currentMovingBlock.move(new Vector3(-bounds.x, 0, bounds.y + MAP_LENGTH * SampleBlock.transform.lossyScale.z));
             currentMovingBlock.move(new Vector3((int)(Random.Range(0.0f, MAP_WIDTH - bounds.width)) * SampleBlock.transform.lossyScale.x, 0, 0));
         }
-
-        for (int i = 0; i < currentMovingBlock.Blocks.Count; ++i)
+        try
         {
-            Block currentBlock = currentMovingBlock.Blocks[i];
-            Vector3 scale = currentBlock.BlockObject.transform.lossyScale;
-            Vector3 currentBlockLeftBottom = currentBlock.BlockObject.transform.position;
-            Vector3 mapCoordinate = new Vector3(currentBlockLeftBottom.x / scale.x, currentBlockLeftBottom.y / scale.y, (currentBlockLeftBottom.z + moveOffset.z - scale.z / 2) / scale.z);
-            hasToStop |= (mapCoordinate.z) < 0 || ((int)(mapCoordinate.z) < MAP_LENGTH && map[(int)(mapCoordinate.x), (int)(mapCoordinate.y), (int)(mapCoordinate.z)] != null);
-        }
-
-        if (hasToStop)
-        {
-            Vector3 startPosition = currentMovingBlock.Blocks[0].BlockObject.transform.position;
             for (int i = 0; i < currentMovingBlock.Blocks.Count; ++i)
             {
                 Block currentBlock = currentMovingBlock.Blocks[i];
-
                 Vector3 scale = currentBlock.BlockObject.transform.lossyScale;
                 Vector3 currentBlockLeftBottom = currentBlock.BlockObject.transform.position;
-                Vector3 mapCoordinate = new Vector3(currentBlockLeftBottom.x / scale.x, currentBlockLeftBottom.y / scale.y, (currentBlockLeftBottom.z) / scale.z);
-                map[(int)(mapCoordinate.x), (int)(mapCoordinate.y), (int)(mapCoordinate.z)] = currentBlock;
+                Vector3 mapCoordinate = new Vector3(currentBlockLeftBottom.x / scale.x, currentBlockLeftBottom.y / scale.y, (currentBlockLeftBottom.z + moveOffset.z - scale.z / 2) / scale.z);
+                hasToStop |= (mapCoordinate.z) < 0 || ((int)(mapCoordinate.z) < MAP_LENGTH && map[(int)(mapCoordinate.x), (int)(mapCoordinate.y), (int)(mapCoordinate.z)] != null);
             }
-            currentMovingBlock = null;
+
+            if (hasToStop)
+            {
+                Vector3 startPosition = currentMovingBlock.Blocks[0].BlockObject.transform.position;
+                for (int i = 0; i < currentMovingBlock.Blocks.Count; ++i)
+                {
+                    Block currentBlock = currentMovingBlock.Blocks[i];
+
+                    Vector3 scale = currentBlock.BlockObject.transform.lossyScale;
+                    Vector3 currentBlockLeftBottom = currentBlock.BlockObject.transform.position;
+                    Vector3 mapCoordinate = new Vector3(currentBlockLeftBottom.x / scale.x, currentBlockLeftBottom.y / scale.y, (currentBlockLeftBottom.z) / scale.z);
+                    map[(int)(mapCoordinate.x), (int)(mapCoordinate.y), (int)(mapCoordinate.z)] = currentBlock;
+                }
+                currentMovingBlock = null;
+            }
+            else
+            {
+                currentMovingBlock.move(moveOffset);
+            }
         }
-        else
+        catch (System.Exception)
         {
-            currentMovingBlock.move(moveOffset);
+            
+            throw;
         }
+
+        for (int i = 0; i < 4; ++i)
+        {
+            if (!players[i].transform.FindChild("vypp").animation.isPlaying)
+            {
+                players[i].transform.FindChild("vypp").animation.Play("Walk", PlayMode.StopAll);
+            }
+        }
+
     }
 
 
@@ -170,6 +185,17 @@ public class TetrisManagerScript : MonoBehaviour
                         }
                     }
                 }
+            }
+        }
+       
+        for (int i = 0; i < 4; ++i)
+        {
+            int stackingNum = random.Next(MAP_HEIGHT - 1);
+            for (int s = 1; s <= stackingNum; ++s)
+            {
+                Vector3 worldOffset = blocks[i].Offset + new Vector3(0,s,0);
+                blocks.Add(new Block((GameObject)GameObject.Instantiate(SampleBlock, startPosition + worldOffset, Quaternion.identity), worldOffset));
+            blocks[blocks.Count - 1].BlockObject.transform.parent = blocks[0].BlockObject.transform;
             }
         }
         TetrisBlock newBlock = new TetrisBlock(blocks);

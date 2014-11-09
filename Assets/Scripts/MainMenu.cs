@@ -29,8 +29,6 @@ public class MainMenu : MonoBehaviour {
     public GameObject UpKey3;
     public GameObject UpKey4;
 
-    
-
     public static int KeysP1 = 1;
     public static int KeysP2 = 1;
     public static int KeysP3 = 1;
@@ -46,7 +44,7 @@ public class MainMenu : MonoBehaviour {
     public List<KeyCode> blockedButtons;
     public List<Vector3> positions;
 
-    public int currentP = 1;
+    public static int currentP = 1;
     
 	// Use this for initialization
     void Start()
@@ -89,29 +87,6 @@ public class MainMenu : MonoBehaviour {
         positions.Add(new Vector3(1.83f, 0.88f, 0));
         positions.Add(new Vector3(-1.35f, -0.72f, 0));
         positions.Add(new Vector3(1.83f, -0.72f, 0));
-
-        
-
-        //AButton1.transform.localScale += new Vector3(0.0f, 0, 0);
-
-
-        /*
-        WKey1.transform.localPosition = new Vector3(-1.88f, 0.88f, 0);
-        WKey2.transform.localPosition = new Vector3(1.3f, 0.88f, 0);
-        WKey3.transform.localPosition = new Vector3(-1.88f, -0.72f, 0);
-        WKey4.transform.localPosition = new Vector3(1.3f, -0.72f, 0);
-
-        UpKey1.transform.localPosition = new Vector3(-1.66f, 0.88f, 0);
-        UpKey2.transform.localPosition = new Vector3(1.51f, 0.88f, 0);
-        UpKey3.transform.localPosition = new Vector3(-1.66f, -0.72f, 0);
-        UpKey4.transform.localPosition = new Vector3(1.51f, -0.72f, 0);
-
-        AButton1.transform.localPosition = new Vector3(-1.35f, 0.88f, 0);
-        AButton2.transform.localPosition = new Vector3(1.83f, 0.88f, 0);
-        AButton3.transform.localPosition = new Vector3(-1.35f, -0.72f, 0);
-        AButton4.transform.localPosition = new Vector3(1.83f, -0.72f, 0);
-        */
-
     }
         
 
@@ -129,12 +104,12 @@ public class MainMenu : MonoBehaviour {
                 objects[i].transform.localPosition = positions[i];
             }
 
-            if (GUI.Button(new Rect(Screen.width * 0.40f, Screen.height * 0.3f, Screen.width * 0.15f, Screen.height * 0.17f), string.Format("<size=32>Start</size>")))
+            if (GUI.Button(new Rect(Screen.width * 0.425f, Screen.height * 0.24f, Screen.width * 0.15f, Screen.height * 0.17f), string.Format("<size=32>Start</size>")))
             {
                 firstStart = true;
                 currentSubMenu = subMenu.Settings;
             }
-            if (GUI.Button(new Rect(Screen.width * 0.40f, Screen.height * 0.6f, Screen.width * 0.15f, Screen.height * 0.17f), string.Format("<size=32>Ausfahrt</size>")))
+            if (GUI.Button(new Rect(Screen.width * 0.425f, Screen.height * 0.6f, Screen.width * 0.15f, Screen.height * 0.17f), string.Format("<size=32>Ausfahrt</size>")))
             {
                 Application.Quit();
             }
@@ -174,7 +149,7 @@ public class MainMenu : MonoBehaviour {
                 blockedButtons.Clear();
                 currentSubMenu = subMenu.Main;
             }
-            if (GUI.Button(new Rect(Screen.width * 0.40f, Screen.height * 0.3f, Screen.width * 0.15f, Screen.height * 0.17f), string.Format("<size=32>Start Game</size>")))
+            if (GUI.Button(new Rect(Screen.width * 0.425f, Screen.height * 0.24f, Screen.width * 0.15f, Screen.height * 0.17f), string.Format("<size=32>Start Game</size>")))
             {
                 Application.LoadLevel("CordsPlayground");
             }

@@ -11,6 +11,7 @@ public class Block
     public Vector3 Offset
     {
         get { return offset; }
+        set { offset = value; }
     }
     public GameObject BlockObject
     {

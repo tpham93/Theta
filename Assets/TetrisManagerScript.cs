@@ -10,6 +10,7 @@ public class TetrisManagerScript : MonoBehaviour
     public const int MAP_HEIGHT = 5;
     public const int MAP_LENGTH = 20;
 
+    GameObject[] players;
     Block[, ,] map;
     public GameObject SampleBlock;
     TetrisBlock currentMovingBlock;
@@ -32,6 +33,8 @@ public class TetrisManagerScript : MonoBehaviour
             }
         }
 
+        List<Vector3> possibleSpawnLocations = new List<Vector3>();
+
         for (int i = 0; i < 4; ++i)
         {
             Vector3 pos = new Vector3();
@@ -42,20 +45,25 @@ public class TetrisManagerScript : MonoBehaviour
             pos.Scale(SampleBlock.transform.lossyScale);
             GameObject blockObject = (GameObject)GameObject.Instantiate(SampleBlock, pos + new Vector3(0, 0, SampleBlock.transform.lossyScale.z/2), Quaternion.identity);
             map[(int)pos.x, (int)pos.y, (int)pos.z] = new Block(blockObject, new Vector3());
+            possibleSpawnLocations.Add(pos + new Vector3(0, 0, SampleBlock.transform.lossyScale.z / 2));
         }
         for (int x = 0; x < MAP_WIDTH; ++x)
         {
             for (int z = 0; z < 2; ++z)
             {
                 Vector3 pos = new Vector3(x, 0.0f, z);
-                if (map[(int)pos.x, (int)pos.y, (int)pos.z] == null  && random.NextDouble() < 0.8)
+                if (map[(int)pos.x, (int)pos.y, (int)pos.z] == null  && random.NextDouble() < 0.6)
                 {
                     pos.Scale(SampleBlock.transform.lossyScale);
                     GameObject blockObject = (GameObject)GameObject.Instantiate(SampleBlock, pos + new Vector3(0, 0, SampleBlock.transform.lossyScale.z / 2), Quaternion.identity);
                     map[(int)pos.x, (int)pos.y, (int)pos.z] = new Block(blockObject, new Vector3());
                 }
+                possibleSpawnLocations.Add(pos + new Vector3(0, 0, SampleBlock.transform.lossyScale.z / 2));
             }
         }
+
+        GameObject[] playePrefab = { play};
+
         currentMovingBlock = null;
     }
 
@@ -72,7 +80,6 @@ public class TetrisManagerScript : MonoBehaviour
             currentMovingBlock.move(new Vector3(-bounds.x, 0, bounds.y + MAP_LENGTH * SampleBlock.transform.lossyScale.z));
             currentMovingBlock.move(new Vector3((int)(Random.Range(0.0f, MAP_WIDTH - bounds.width)) * SampleBlock.transform.lossyScale.x, 0, 0));
         }
-
 
         for (int i = 0; i < currentMovingBlock.Blocks.Count; ++i)
         {

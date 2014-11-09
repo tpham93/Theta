@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Escape))
         {
+            MainMenu.currentP = 1;
             Application.LoadLevel("jareksSpacesstation");
         }
     }

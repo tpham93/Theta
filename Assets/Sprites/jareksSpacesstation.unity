@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSubMenu: 0
+  firstStart: 1
   buttonTranslate: 1.10000002
   AButton1: {fileID: 947402547}
   AButton2: {fileID: 1198684745}
@@ -177,6 +178,8 @@ MonoBehaviour:
   UpKey2: {fileID: 722051102}
   UpKey3: {fileID: 926795834}
   UpKey4: {fileID: 1267564408}
+  blockedButtons: 
+  currentP: 1
 --- !u!1 &722051102
 GameObject:
   m_ObjectHideFlags: 0

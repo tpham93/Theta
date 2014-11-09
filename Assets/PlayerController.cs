@@ -38,10 +38,10 @@ public class PlayerController : MonoBehaviour
         if (0 < ID2 && ID2 < 7)
         {
             // move
-            if (Mathf.Abs(Input.GetAxis("Horizontal" + ID2))> 0.9f)
+            //if (Mathf.Abs(Input.GetAxis("Horizontal" + ID2))> 0.9f)
                 this.gameObject.transform.position += Input.GetAxis("Horizontal" + ID2) * Vector3.right * stepSize;
 
-            if (Mathf.Abs(Input.GetAxis("Vertical" + ID2)) > 0.9f)
+            //if (Mathf.Abs(Input.GetAxis("Vertical" + ID2)) > 0.9f)
                 this.gameObject.transform.position += Input.GetAxis("Vertical" + ID2) * Vector3.forward * stepSize;
 
             // don't fall over

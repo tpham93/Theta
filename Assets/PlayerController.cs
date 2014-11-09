@@ -44,9 +44,11 @@ public class PlayerController : MonoBehaviour
             //if (Mathf.Abs(Input.GetAxis("Vertical" + ID2)) > 0.9f)
             this.gameObject.transform.position += Input.GetAxis("Vertical" + ID2) * gameObject.transform.forward * stepSize;
 
-            // don't fall over & rotation
+            // don't fall over
             Quaternion rotation = this.gameObject.transform.rotation;
-            this.gameObject.transform.rotation = new Quaternion(0, rotation.y + Input.GetAxis("Rotate"+ID2), 0, rotation.w);
+            this.gameObject.transform.rotation = new Quaternion(0, rotation.y, 0, rotation.w);
+
+            this.gameObject.transform.Rotate(0, Input.GetAxis("Rotate" + ID2) * 2, 0);
 
             // jump
             if (!isJumping && Input.GetAxis("Jump" + ID2) == 1)

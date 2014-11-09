@@ -7,6 +7,11 @@ using System.Text;
 public class TetrisBlock
 {
     List<Block> blocks;
+
+    public List<Block> Blocks
+    {
+        get { return blocks; }
+    }
     public TetrisBlock()
         :this(new List<Block>())
     {
@@ -18,6 +23,7 @@ public class TetrisBlock
 
     public void move(Vector3 movement)
     {
-        blocks[0].blockObject.transform.position += movement;
+        blocks[0].BlockObject.transform.position += movement;
     }
+
 }

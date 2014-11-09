@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,8 +42,8 @@ public class TetrisManagerScript : MonoBehaviour
         {
             currentMovingBlock = spawnTetrisBlock(new Vector3(0, 0, 0));
             Rect bounds = currentMovingBlock.getBounds();
-            Debug.Log(bounds);
             currentMovingBlock.move(new Vector3(-bounds.x, 0, bounds.y + MAP_LENGTH * SampleBlock.transform.lossyScale.z));
+            currentMovingBlock.move(new Vector3((int)(Random.Range(0.0f,MAP_WIDTH - bounds.width)) * SampleBlock.transform.lossyScale.x,0,0));
         }
 
 
@@ -74,17 +73,6 @@ public class TetrisManagerScript : MonoBehaviour
         else
         {
             currentMovingBlock.move(moveOffset);
-        }
-        Debug.Log("NEWLINE");
-        for (int y = 0; y < MAP_LENGTH; ++y)
-        {
-            String line = "";
-
-            for (int x = 0; x < MAP_WIDTH; ++x)
-            {
-                line += map[x, 0, MAP_LENGTH - y - 1] == null ? '_' : 'x';
-            }
-            Debug.Log(line);
         }
     }
 

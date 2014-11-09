@@ -47,9 +47,10 @@ public class TetrisManagerScript : MonoBehaviour
                 pos = new Vector3(random.Next(MAP_WIDTH), 0.0f, random.Next(2));
             } while (map[(int)pos.x, (int)pos.y, (int)pos.z] != null);
             pos.Scale(SampleBlock.transform.lossyScale);
-            GameObject blockObject = (GameObject)GameObject.Instantiate(SampleBlock, pos + new Vector3(0, 0, SampleBlock.transform.lossyScale.z/2), Quaternion.identity);
+            pos += new Vector3(0, 0, SampleBlock.transform.lossyScale.z / 2);
+            GameObject blockObject = (GameObject)GameObject.Instantiate(SampleBlock, pos, Quaternion.identity);
             map[(int)pos.x, (int)pos.y, (int)pos.z] = new Block(blockObject, new Vector3());
-            possibleSpawnLocations.Add(pos + new Vector3(0, 0, SampleBlock.transform.lossyScale.z / 2));
+            possibleSpawnLocations.Add(pos);
         }
         for (int x = 0; x < MAP_WIDTH; ++x)
         {
@@ -59,10 +60,10 @@ public class TetrisManagerScript : MonoBehaviour
                 if (map[(int)pos.x, (int)pos.y, (int)pos.z] == null  && random.NextDouble() < 0.6)
                 {
                     pos.Scale(SampleBlock.transform.lossyScale);
-                    GameObject blockObject = (GameObject)GameObject.Instantiate(SampleBlock, pos + new Vector3(0, 0, SampleBlock.transform.lossyScale.z / 2), Quaternion.identity);
+                    pos += new Vector3(0, 0, SampleBlock.transform.lossyScale.z / 2);
+                    GameObject blockObject = (GameObject)GameObject.Instantiate(SampleBlock, pos, Quaternion.identity);
                     map[(int)pos.x, (int)pos.y, (int)pos.z] = new Block(blockObject, new Vector3());
                 }
-                possibleSpawnLocations.Add(pos + new Vector3(0, 0, SampleBlock.transform.lossyScale.z / 2));
             }
         }
 

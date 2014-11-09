@@ -39,13 +39,14 @@ public class PlayerController : MonoBehaviour
         {
             // move
             //if (Mathf.Abs(Input.GetAxis("Horizontal" + ID2))> 0.9f)
-                this.gameObject.transform.position += Input.GetAxis("Horizontal" + ID2) * Vector3.right * stepSize;
+            this.gameObject.transform.position += Input.GetAxis("Horizontal" + ID2) * gameObject.transform.right * stepSize;
 
             //if (Mathf.Abs(Input.GetAxis("Vertical" + ID2)) > 0.9f)
-                this.gameObject.transform.position += Input.GetAxis("Vertical" + ID2) * Vector3.forward * stepSize;
+            this.gameObject.transform.position += Input.GetAxis("Vertical" + ID2) * gameObject.transform.forward * stepSize;
 
             // don't fall over
-            this.gameObject.rigidbody.MoveRotation(Quaternion.identity);
+            Quaternion rotation = this.gameObject.transform.rotation;
+            this.gameObject.transform.rotation = new Quaternion(0, rotation.y, 0, rotation.w);
 
             // jump
             if (!isJumping && Input.GetAxis("Jump" + ID2) == 1)

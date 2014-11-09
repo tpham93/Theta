@@ -30,7 +30,7 @@ public class TetrisManagerScript : MonoBehaviour
                 }
             }
         }
-        currentMovingBlock = spawnTetrisBlock(new Vector3(1, 0, MAP_LENGTH + 2));
+        currentMovingBlock = spawnTetrisBlock(new Vector3(SampleBlock.transform.lossyScale.x, 0, 20 * SampleBlock.transform.lossyScale.z));
     }
 
     // Update is called once per frame
@@ -43,39 +43,44 @@ public class TetrisManagerScript : MonoBehaviour
         //    lastSpawnedBlockTime = 0;
         //}
         bool hasToStop = false;
-        for (int i = 0; i < 4; ++i)
+        Vector3 moveOffset = new Vector3(0.0f, 0.0f, -0.1f * SampleBlock.transform.lossyScale.z);
+        for (int i = 0; i < currentMovingBlock.Blocks.Count; ++i)
         {
             Block currentBlock = currentMovingBlock.Blocks[i];
             Vector3 scale = currentBlock.BlockObject.transform.lossyScale;
             Vector3 currentBlockLeftBottom = currentBlock.BlockObject.transform.position;
-            Vector3 mapCoordinate = new Vector3((int)currentBlockLeftBottom.x / scale.x, 0, (int)currentBlockLeftBottom.z / scale.z - 0.1f);
-            hasToStop |= (int)(mapCoordinate.z) == 0 || mapCoordinate.z < MAP_LENGTH && map[(int)mapCoordinate.x, (int)mapCoordinate.y, (int)mapCoordinate.z] != null;
+            Vector3 mapCoordinate = new Vector3(currentBlockLeftBottom.x / scale.x, currentBlockLeftBottom.y / scale.y, (currentBlockLeftBottom.z + moveOffset.z - scale.z/2) / scale.z);
+            hasToStop |= (mapCoordinate.z) < 0 || ((int)(mapCoordinate.z) < MAP_LENGTH && map[(int)(mapCoordinate.x), (int)(mapCoordinate.y), (int)  (mapCoordinate.z)] != null);
         }
 
         if (hasToStop)
         {
             Vector3 startPosition = currentMovingBlock.Blocks[0].BlockObject.transform.position;
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < currentMovingBlock.Blocks.Count; ++i)
             {
                 Block currentBlock = currentMovingBlock.Blocks[i];
+
                 Vector3 scale = currentBlock.BlockObject.transform.lossyScale;
-                Vector3 mapCoordinate = (currentBlock.Offset + startPosition);
-                mapCoordinate.Scale(new Vector3(1.0f / scale.x, 1.0f / scale.y, 1.0f / scale.z));
-                try
-                {
-                    map[(int)mapCoordinate.x, (int)mapCoordinate.y, (int)mapCoordinate.z] = currentBlock;
-                }
-                catch (Exception)
-                {
-                    
-                    throw;
-                }
+                Vector3 currentBlockLeftBottom = currentBlock.BlockObject.transform.position;
+                Vector3 mapCoordinate = new Vector3(currentBlockLeftBottom.x / scale.x, currentBlockLeftBottom.y / scale.y, (currentBlockLeftBottom.z - scale.z/2) / scale.z);
+                map[(int)(mapCoordinate.x), (int)(mapCoordinate.y), (int)(mapCoordinate.z)] = currentBlock;
             }
-            currentMovingBlock = spawnTetrisBlock(new Vector3(1.0f, 0, 20));
+            currentMovingBlock = spawnTetrisBlock(new Vector3(SampleBlock.transform.lossyScale.x, 0, 20 * SampleBlock.transform.lossyScale.z));
         }
         else
         {
-            currentMovingBlock.move(new Vector3(0.0f, 0.0f, -0.1f));
+            currentMovingBlock.move(moveOffset);
+        }
+        Debug.Log("NEWLINE");
+        for (int y = 0; y < MAP_LENGTH; ++y)
+        {
+            String line = "";
+
+            for (int x = 0; x < MAP_WIDTH; ++x)
+            {
+                line += map[x,0,MAP_LENGTH - y - 1] == null? '_' : 'x';
+            }
+            Debug.Log(line);
         }
     }
 
@@ -83,7 +88,7 @@ public class TetrisManagerScript : MonoBehaviour
 
     private Vector3 offset2DToVector3D(Vector2 offset)
     {
-        return new Vector3(offset.x, 0, offset.y);
+        return new Vector3(offset.x * SampleBlock.transform.lossyScale.x, 0, offset.y * SampleBlock.transform.lossyScale.y);
     }
 
     private TetrisBlock spawnTetrisBlock(Vector3 startPosition)
@@ -128,10 +133,9 @@ public class TetrisManagerScript : MonoBehaviour
         for (int i = 0; i < 4; ++i)
         {
             int numStackingBlocks = (int)(random.NextDouble() * random.NextDouble() * random.NextDouble() * MAP_HEIGHT);
-            Debug.Log(numStackingBlocks);
             for (int s = 1; s <= numStackingBlocks; ++s)
             {
-                blocks.Add(new Block((GameObject)GameObject.Instantiate(SampleBlock, blocks[i].BlockObject.transform.position + new Vector3(0, s, 0), Quaternion.identity), offset2DToVector3D(new Vector3(0, s, 0))));
+                blocks.Add(new Block((GameObject)GameObject.Instantiate(SampleBlock, blocks[i].BlockObject.transform.position + new Vector3(0, s * SampleBlock.transform.lossyScale.y, 0), Quaternion.identity), offset2DToVector3D(new Vector3(0, s))));
                 blocks[blocks.Count - 1].BlockObject.transform.parent = blocks[i].BlockObject.transform;
             }
         }

@@ -10,6 +10,11 @@ public class PlayerController : MonoBehaviour
     private bool isJumping = false;
     private BlockScript currentBlock;
 
+    private float hitCooldownTime = 0.5f;
+    private float hitCooldown = 0;
+    public bool isHitting { get { return hitCooldown > 0.3; } }
+
+
     // Use this for initialization
     void Start()
     {
@@ -58,6 +63,12 @@ public class PlayerController : MonoBehaviour
                 this.transform.parent = null;
                 currentBlock = null;
             }
+
+            if(Input.GetAxis("Hit" + ID2) != 0)
+            {
+                hitCooldown = hitCooldownTime;
+            }
+            hitCooldown -= Time.deltaTime;
         }
     }
 
@@ -83,6 +94,18 @@ public class PlayerController : MonoBehaviour
             }
             if (isJumping && collision.collider.transform.position.y < position.y)
                 isJumping = false;
+        }
+
+        PlayerController collidingPlayer = collision.collider.GetComponent<PlayerController>();
+        if(collidingPlayer != null)
+        {
+            if(collidingPlayer.isHitting)
+            {
+                Vector2 dir1 = collidingPlayer.transform.forward;
+                Vector2 dir2 = (this.transform.position - collidingPlayer.transform.position).normalized;
+                if (Vector3.Angle(dir1, dir2) < 35)
+                    this.gameObject.rigidbody.AddExplosionForce(800.0f, collidingPlayer.transform.position, 10.0f);
+            }
         }
     }
 }

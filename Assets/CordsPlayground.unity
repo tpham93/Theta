@@ -4641,50 +4641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e25c181c3ff49d45a6202c011f7c965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1384596259
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1384596261}
-  - 114: {fileID: 1384596260}
-  m_Layer: 0
-  m_Name: TetrisManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1384596260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1384596259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ca49ca79df229b42875d7fcbce1e69b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1: {fileID: 1083728500}
-  player2: {fileID: 1632726901}
-  player3: {fileID: 1001901803}
-  player4: {fileID: 983891398}
-  SampleBlock: {fileID: 100000, guid: f6d40b45c97ac1e4fb327611e4c0acee, type: 2}
---- !u!4 &1384596261
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1384596259}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
 --- !u!1001 &1427746107
 Prefab:
   m_ObjectHideFlags: 0
@@ -5876,6 +5832,50 @@ Prefab:
   m_RootGameObject: {fileID: 1368836268}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1735315684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1735315686}
+  - 114: {fileID: 1735315685}
+  m_Layer: 0
+  m_Name: TetrisManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1735315685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1735315684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca49ca79df229b42875d7fcbce1e69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 1083728500}
+  player2: {fileID: 1632726901}
+  player3: {fileID: 1001901803}
+  player4: {fileID: 983891398}
+  SampleBlock: {fileID: 100000, guid: f6d40b45c97ac1e4fb327611e4c0acee, type: 2}
+--- !u!4 &1735315686
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1735315684}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &1742218715
 GameObject:
   m_ObjectHideFlags: 0
@@ -6115,7 +6115,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1001 &1807580692
 Prefab:
   m_ObjectHideFlags: 0

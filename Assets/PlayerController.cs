@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
             this.gameObject.transform.position = new Vector3(4.5f, 6, -0.5f);
         if (Input.GetKey(KeyCode.Escape))
         {
+            MainMenu.currentP = 1;
             Application.LoadLevel("jareksSpacesstation");
         }
     }

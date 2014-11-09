@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     private bool isJumping = false;
     private BlockScript currentBlock;
 
+    private float hitCooldownTime = 0.5f;
+    private float hitCooldown = 0;
+
+
     // Use this for initialization
     void Start()
     {
@@ -79,6 +83,12 @@ public class PlayerController : MonoBehaviour
             }
             if (isJumping && collision.collider.transform.position.y < position.y)
                 isJumping = false;
+        }
+
+        PlayerController collidingPlayer = collision.collider.GetComponent<PlayerController>();
+        if(collidingPlayer != null)
+        {
+
         }
     }
 }

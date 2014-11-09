@@ -66,7 +66,17 @@ public class TetrisManagerScript : MonoBehaviour
             }
         }
 
-        GameObject[] playePrefab = { play};
+        GameObject[] playerPrefab = { player1, player2, player3, player4 };
+        players = new GameObject[4];
+        for (int i = 0; i < 4; ++i)
+        {
+            int locationIndex = random.Next(possibleSpawnLocations.Count);
+            Vector3 spawnLocation = possibleSpawnLocations[locationIndex];
+            possibleSpawnLocations.RemoveAt(locationIndex);
+
+            players[i] = (GameObject)GameObject.Instantiate(playerPrefab[i], spawnLocation + new Vector3(0,1,0), Quaternion.identity);
+            
+        }
 
         currentMovingBlock = null;
     }

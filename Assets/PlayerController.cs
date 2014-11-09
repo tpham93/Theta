@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
             if(Input.GetAxis("Hit" + ID2) != 0)
             {
+                this.transform.FindChild("vypp").animation.Play("Hit", PlayMode.StopAll);
                 hitCooldown = hitCooldownTime;
             }
             hitCooldown -= Time.deltaTime;

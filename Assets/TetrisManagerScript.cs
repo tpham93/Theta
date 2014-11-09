@@ -11,7 +11,7 @@ public class TetrisManagerScript : MonoBehaviour
     public GameObject player4;
 
     public const int MAP_WIDTH = 10;
-    public const int MAP_HEIGHT = 5;
+    public const int MAP_HEIGHT = 3;
     public const int MAP_LENGTH = 20;
 
     GameObject[] players;

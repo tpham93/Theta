@@ -76,7 +76,7 @@ public class TetrisManagerScript : MonoBehaviour
             possibleSpawnLocations.RemoveAt(locationIndex);
 
             players[i] = (GameObject)GameObject.Instantiate(playerPrefab[i], spawnLocation + new Vector3(0,1,0), Quaternion.identity);
-            
+            players[i].transform.FindChild("vypp").animation.Play();
         }
 
         currentMovingBlock = null;
@@ -122,6 +122,15 @@ public class TetrisManagerScript : MonoBehaviour
         else
         {
             currentMovingBlock.move(moveOffset);
+        }
+
+
+        for (int i = 0; i < 4; ++i)
+        {
+            if (!players[i].transform.FindChild("vypp").animation.isPlaying)
+            {
+                players[i].transform.FindChild("vypp").animation.Play("walk", PlayMode.StopAll);
+            }
         }
     }
 
@@ -170,6 +179,17 @@ public class TetrisManagerScript : MonoBehaviour
                         }
                     }
                 }
+            }
+        }
+       
+        for (int i = 0; i < 4; ++i)
+        {
+            int stackingNum = random.Next(MAP_HEIGHT - 1);
+            for (int s = 1; s <= stackingNum; ++s)
+            {
+                Vector3 worldOffset = blocks[i].Offset + new Vector3(0,s,0);
+                blocks.Add(new Block((GameObject)GameObject.Instantiate(SampleBlock, startPosition + worldOffset, Quaternion.identity), worldOffset));
+                blocks[blocks.Count - 1].BlockObject.transform.parent = blocks[0].BlockObject.transform;
             }
         }
         TetrisBlock newBlock = new TetrisBlock(blocks);
